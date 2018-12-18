@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gifty factory</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <div id="tittle">
+      <h1>Gifty factory</h1>
+    </div>
+    <div id="searchBar">
+      TODO autocomplete input search field
+      <input type="search" placeholder="Entrez un nom" v-model="champNom">
+      <button v-on:click="affiche(champNom)">Afficher liste</button>
+    </div>
+    <div id="idees">
+        <div class="container">
+            <div class="row">
+                <idee :info='idee' v-for='idee in ideesAffichees'></idee>    
+            </div>
+          </div>
+        
+    </div>
+  </div>
+  <script>
+
+    Vue.component('idee', {
+      template: `
+        <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            {{info.nom}}
+          </div>
+        </div>
+      `,
+      props: ['info']
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        idees: [
+          {
+            "nom" : "a",
+            "pour" : "Martin TER",
+            "ajoutePar" : "Martin TER"
+          },
+          {
+            "nom": "b",
+            "pour" : "Martin TER",
+            "ajoutePar" : "Joseph PI"
+          },
+          {
+            "nom": "c",
+            "pour" : "Joseph PI",
+            "ajoutePar" : "Joseph PI"
+          }
+        ],
+        ideesAffichees: [],
+        champNom: '',
+      },
+      methods: {
+        affiche: function (nomRecherche) {
+          while(this.ideesAffichees.length > 0) {
+            this.ideesAffichees.pop();
+          }
+          for(var i= 0; i < this.idees.length; i++) {
+            if (nomRecherche == this.idees[i].pour) {
+              this.ideesAffichees.push(this.idees[i])
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
