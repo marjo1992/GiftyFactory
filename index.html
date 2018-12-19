@@ -10,11 +10,7 @@
     <div id="tittle">
       <h1>Gifty factory</h1>
     </div>
-    <div id="searchBar">
-      TODO autocomplete input search field
-      <input type="search" placeholder="Entrez un nom" v-model="champNom">
-      <button v-on:click="affiche(champNom)">Afficher liste</button>
-    </div>
+    <searchbar @update-name="affiche"></searchbar>
     <div id="idees">
         <div class="container">
             <div class="row">
@@ -25,6 +21,30 @@
     </div>
   </div>
   <script>
+
+    Vue.component('test', {
+      template: `<div>{{test || 'pouet'}}</div>`,
+      props: ['test']
+    });
+
+    Vue.component('searchbar', {
+      template: `
+      <div>
+	    <input type="search" placeholder="Entrez un nom" v-model="champNom">
+	    <button v-on:click="updateName()">Afficher liste</button>
+	    </div>
+      `,
+      data: function() {
+      	return {
+      		champNom: ''
+      	}
+      },
+      methods: {
+      	updateName: function(e) {
+      		this.$emit('update-name', this.champNom);
+      	}
+      }
+    });
 
     Vue.component('idee', {
       template: `
@@ -40,6 +60,7 @@
     var app = new Vue({
       el: '#app',
       data: {
+      	test: "tarace",
         idees: [
           {
             "nom" : "a",
