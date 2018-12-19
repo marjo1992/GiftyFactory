@@ -4,63 +4,22 @@
   <title>Gifty factory</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://unpkg.com/vue"></script>
+  <script src="searchbar/searchbar.js"></script>
+  <script src="idee/idee.js"></script>
+  <script src="idees/idees.js"></script>
 </head>
 <body>
-  <div id="app">
+  <div id="app" class="container">
     <div id="tittle">
       <h1>Gifty factory</h1>
     </div>
     <searchbar @update-name="affiche"></searchbar>
-    <div id="idees">
-        <div class="container">
-            <div class="row">
-                <idee :info='idee' v-for='idee in ideesAffichees'></idee>    
-            </div>
-          </div>
-        
-    </div>
+    <idees :idees-affichees="ideesAffichees"></idees>
   </div>
   <script>
-
-    Vue.component('test', {
-      template: `<div>{{test || 'pouet'}}</div>`,
-      props: ['test']
-    });
-
-    Vue.component('searchbar', {
-      template: `
-      <div>
-	    <input type="search" placeholder="Entrez un nom" v-model="champNom">
-	    <button v-on:click="updateName()">Afficher liste</button>
-	    </div>
-      `,
-      data: function() {
-      	return {
-      		champNom: ''
-      	}
-      },
-      methods: {
-      	updateName: function(e) {
-      		this.$emit('update-name', this.champNom);
-      	}
-      }
-    });
-
-    Vue.component('idee', {
-      template: `
-        <div class="col-md-4">
-          <div class="card mb-4 box-shadow">
-            {{info.nom}}
-          </div>
-        </div>
-      `,
-      props: ['info']
-    });
-
     var app = new Vue({
       el: '#app',
       data: {
-      	test: "tarace",
         idees: [
           {
             "nom" : "a",
