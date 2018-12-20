@@ -14,42 +14,20 @@
       <h1>Gifty factory</h1>
     </div>
     <searchbar @update-name="affiche"></searchbar>
-    <idees :idees-affichees="ideesAffichees"></idees>
+    <idees :idees="idees"></idees>
   </div>
   <script>
     var app = new Vue({
       el: '#app',
-      data: {
-        idees: [
-          {
-            "nom" : "a",
-            "pour" : "Martin TER",
-            "ajoutePar" : "Martin TER"
-          },
-          {
-            "nom": "b",
-            "pour" : "Martin TER",
-            "ajoutePar" : "Joseph PI"
-          },
-          {
-            "nom": "c",
-            "pour" : "Joseph PI",
-            "ajoutePar" : "Joseph PI"
-          }
-        ],
-        ideesAffichees: [],
-        champNom: '',
+      data: function() {
+        return {
+          idees: []
+        }
       },
       methods: {
-        affiche: function (nomRecherche) {
-          while(this.ideesAffichees.length > 0) {
-            this.ideesAffichees.pop();
-          }
-          for(var i= 0; i < this.idees.length; i++) {
-            if (nomRecherche == this.idees[i].pour) {
-              this.ideesAffichees.push(this.idees[i])
-            }
-          }
+        affiche: function (idees) {
+          this.idees.length = 0;
+          this.idees.push(...idees);
         }
       }
     })

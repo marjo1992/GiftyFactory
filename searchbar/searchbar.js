@@ -11,8 +11,19 @@ Vue.component('searchbar', {
         }
     },
     methods: {
-        updateName: function(e) {
-        	this.$emit('update-name', this.champNom);
+        updateName: function() {
+        	this.$emit('update-name', this.find(this.champNom));
+        },
+        find: function(e) {
+            return [{
+                nom: 'tablette de chocolat',
+                pour: e,
+                ajoutePar: 'qqn'
+            }, {
+                nom: 'nutella',
+                pour: e,
+                ajoutePar: 'qqn d\'autre'
+            }]
         }
     }
 });
