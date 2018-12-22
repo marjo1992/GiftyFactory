@@ -33,6 +33,7 @@
     color: white;
     background-color: #1bbdcd;
     height: 28px;
+    cursor: pointer;
 }
 
 .autocomplete + .primary-button {
