@@ -1,0 +1,8 @@
+.resultats {
+	border: 1px solid lightgrey;
+    padding: 0px 0px 0px 15px;
+}
+
+.resultat {
+	list-style: none;
+}
