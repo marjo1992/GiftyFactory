@@ -38,8 +38,11 @@ Vue.component('searchbar', {
             this.onChange(event);
         },
         handleBlur: function(event) {
-            clearTimeout(this.timeoutId);
-            this.open = false;
+            setTimeout(_ => {
+                // On s'assure que le blur n'est pris en compte qu'après le click qui lui est associé (pour selectItem soit appelé si besoin)
+                clearTimeout(this.timeoutId);
+                this.open = false;
+            }, 100);
         },
         selectItem: function(resultat) {
             this.open = false;
@@ -49,15 +52,7 @@ Vue.component('searchbar', {
         	this.$emit('update-name', this.find(this.champNom));
         },
         find: function(e) {
-            return [{
-                nom: 'tablette de chocolat',
-                pour: e,
-                de: 'qqn'
-            }, {
-                nom: 'nutella',
-                pour: e,
-                de: 'qqn d\'autre'
-            }]
+            return this.bdd.getByPour(e);
         }
     }
 });
@@ -87,6 +82,7 @@ class bddMock {
 
     getByPour(requete) {
         return this.data.filter((e) => {
+            return e.pour === requete;
         })
     }
 }
