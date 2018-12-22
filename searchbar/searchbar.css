@@ -1,8 +1,40 @@
+.search-input {
+    border: 1px lightgrey solid;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: none
+}
+
+.search-input:focus {
+    border: 1px #007bff solid;
+}
+
 .resultats {
-	border: 1px solid lightgrey;
+    margin-left: 12px;
+    border: 1px solid lightgrey;
     padding: 0px 0px 0px 15px;
+    overflow: visible;
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    width: 173px;
 }
 
 .resultat {
 	list-style: none;
+}
+
+.primary-button {
+	border: 2px #78d9de solid;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    background-color: #1bbdcd;
+    height: 28px;
+}
+
+.autocomplete + .primary-button {
+	margin-left: 15px;
 }

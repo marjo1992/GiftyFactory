@@ -2,12 +2,12 @@ Vue.component('searchbar', {
     template: `
         <div id="searchbar" class="row">
             <div class="autocomplete">
-                <input class="search-input" type="search" placeholder="Entrez un nom" @input="onChange" v-model="champNom">
+                <input class="search-input" type="search" placeholder="Entrez un nom" @input="onChange" @blur="handleBlur" @focus="handleFocus" v-model="champNom">
                 <ul v-if="open" class="resultats">
-                    <li class="resultat" v-for="(resultat, i) in resultats" @click="selectItem(resultat)" :key="i">{{resultat.pour}}</li>
+                    <li class="resultat" v-for="(resultat, i) in resultats" @click="selectItem(resultat)" :key="i">{{resultat}}</li>
                 </ul>
             </div>
-            <button v-on:click="updateName()">Afficher liste</button>
+            <div class="primary-button" v-on:click="updateName()">Afficher liste</div>
         </div>
     `,
     data: function() {
@@ -20,7 +20,7 @@ Vue.component('searchbar', {
         }
     },
     methods: {
-        onChange: function(e) {
+        onChange: function(event) {
             clearTimeout(this.timeoutId);
             this.timeoutId = setTimeout(() => {
                 this.resultats.length = 0;
@@ -31,12 +31,19 @@ Vue.component('searchbar', {
                     return;
                 };
                 this.open = true;
-                this.resultats.push(...this.bdd.getData(this.champNom));
+                this.resultats.push(...this.bdd.getAutocompletePour(this.champNom));
             }, 500)
+        },
+        handleFocus: function(event) {
+            this.onChange(event);
+        },
+        handleBlur: function(event) {
+            clearTimeout(this.timeoutId);
+            this.open = false;
         },
         selectItem: function(resultat) {
             this.open = false;
-            this.champNom = resultat.pour;
+            this.champNom = resultat;
         },
         updateName: function() {
         	this.$emit('update-name', this.find(this.champNom));
@@ -72,9 +79,14 @@ class bddMock {
         }]
     }
 
-    getData(requete) {
+    getAutocompletePour(requete) {
         return this.data.filter((e) => {
             return e.pour.toLowerCase().includes(requete.toLowerCase());
-        });
+        }).map(e => e.pour);
+    }
+
+    getByPour(requete) {
+        return this.data.filter((e) => {
+        })
     }
 }
