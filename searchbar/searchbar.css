@@ -13,7 +13,7 @@
 .resultats {
     margin-left: 12px;
     border: 1px solid lightgrey;
-    padding: 0px 0px 0px 15px;
+    padding: 0px 0px 0px 0px;
     overflow: visible;
     position: absolute;
     z-index: 2;
@@ -23,6 +23,19 @@
 
 .resultat {
 	list-style: none;
+	cursor: pointer;
+}
+
+.resultat:hover {
+	background-color: aliceblue;
+}
+
+.resultat:not(:last-child) {
+	margin-bottom: 2px;
+}
+
+.resultat>span {
+	margin-left: 15px;
 }
 
 .primary-button {

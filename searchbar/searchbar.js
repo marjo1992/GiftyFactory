@@ -3,8 +3,8 @@ Vue.component('searchbar', {
         <div id="searchbar" class="row">
             <div class="autocomplete">
                 <input class="search-input" type="search" placeholder="Entrez un nom" @input="onChange" @blur="handleBlur" @focus="handleFocus" v-model="champNom">
-                <ul v-if="open" class="resultats">
-                    <li class="resultat" v-for="(resultat, i) in resultats" @click="selectItem(resultat)" :key="i">{{resultat}}</li>
+                <ul v-if="open && resultats.length" class="resultats">
+                    <li class="resultat" v-for="(resultat, i) in resultats" @click="selectItem(resultat)" :key="i"><span>{{resultat}}</span></li>
                 </ul>
             </div>
             <div class="primary-button" v-on:click="updateName()">Afficher liste</div>
